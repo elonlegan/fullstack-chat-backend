@@ -4,7 +4,9 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "nodemon index.js"
+		"start": "node src/index.js",
+		"dev": "nodemon src/index.js",
+		"test": "NODE_ENV=test jest --runInBand"
 	},
 	"author": "elonlegan",
 	"license": "ISC",
