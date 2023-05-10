@@ -3,10 +3,16 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+var morgan = require('morgan');
 
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: true }));
+app.use(
+	morgan('dev', {
+		skip: (req, res) => process.env.NODE_ENV === 'test',
+	})
+);
 
 app.post('/me', async (req, res) => {
 	const {
@@ -44,6 +50,11 @@ app.post('/me', async (req, res) => {
 	}
 });
 
-// Docs at rest.chatengine.io
-// vvv On port 3001!
-app.listen(3001);
+// start server
+const port =
+	process.env.NODE_ENV === 'production'
+		? process.env.PORT || 80
+		: 4000;
+app.listen(port, () => {
+	console.log('Server listening on port ' + port);
+});
